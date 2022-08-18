@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS, cross_origin
 import os
-import speechToText
+import speechTotext
+from src.utils import decodeSound
 
 
 app = Flask(__name__)
@@ -15,9 +16,10 @@ def home():
 @app.route('/predict', methods=['POST'])
 @cross_origin()
 def predictRoute():
-    pass
-
-
+    image = request.json['sound']
+    decodeSound(image, "audio123.wav")
+    result = speechTotext.speech2Text("audio123.wav")
+    return jsonify({"Result": str(result)})
 
 
 
