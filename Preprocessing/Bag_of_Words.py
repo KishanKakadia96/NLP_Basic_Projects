@@ -1,6 +1,7 @@
 #cleaning tasks
 import re
 import nltk
+nltk.download()
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -19,12 +20,17 @@ wordnet = WordNetLemmatizer()
 sentences = nltk.sent_tokenize(Paragraph)
 corpus = []
 for i in range(len(sentences)):
-    review = re.sub('[^a-zA-Z]', '', sentences[i])
+    review = re.sub('[^a-zA-Z]', ' ', sentences[i])
     review = review.lower()
     review = review.split()
     review = [ps.stem(w) for w in review if not word in set(stopwords.words('english'))]
     review = ' '.join(review)
     corpus.append(review)
+
+#creating the Bag of Words model
+from sklern.feature_extraction.text import CountVectorizer
+vectorizer = CountVectorizer(max_features= 1500)
+X=vercorizer.transform(corpus).toarray()
 
 
 
