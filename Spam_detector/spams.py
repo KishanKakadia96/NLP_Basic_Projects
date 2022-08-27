@@ -34,3 +34,21 @@ def dffromdirectory(path, classification): #dataframefromdirectory
 
     return DataFrame(rows, index=index)
 
+#Main to call above functions
+data1 = DataFrame({'message': [], 'class': []})
+
+data1 = data1.append(dffromdirectory(r'C:\Kishan\Github\NLP\NLP_Basic_Projects\Spam_detector\emails\spam', 'spam'))
+data1 = data1.append(dffromdirectory(r'C:\Kishan\Github\NLP\NLP_Basic_Projects\Spam_detector\emails\ham', 'ham'))
+
+#Here we're reading Data Frame
+data1.head()
+
+#training data using MultinomialNB classifier
+vector = CountVectorizer()
+counts = vector.fit_transform(data1['message'].values)
+
+classifier = MultinomialNB()
+targets = data1['class'].values
+classifier.fit(counts, targets)
+
+
