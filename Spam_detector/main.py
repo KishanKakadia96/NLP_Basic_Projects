@@ -8,7 +8,11 @@ CORS(app)
 @app.route("/predict", methods=['POST'])
 @cross_origin()
 def predictRoute():
-    pass
+    data = request.json["data"]
+    p = prediction(data)
+    print(p)
+    print(type(p))
+    return {"Result": str(p)}
 
 
 
