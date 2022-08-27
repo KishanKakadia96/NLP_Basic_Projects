@@ -22,3 +22,15 @@ def reading_Files(path):
             f.close()
             message = '\n'.join(lines)
             yield path, message
+
+#Below function to append the message and their particular classification
+
+def dffromdirectory(path, classification): #dataframefromdirectory
+    rows = []
+    index = []
+    for filename, message in reading_Files(path):
+        rows.append({'message': message, 'class': classification})
+        index.append(filename)
+
+    return DataFrame(rows, index=index)
+
